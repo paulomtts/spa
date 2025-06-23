@@ -1,14 +1,14 @@
 {
   "name": "spa",
   "version": "1.0.0",
-  "description": "1. Run `npm install -g browser-sync`\r 2. Start in debug mode and select `FastAPI + Browser Sync`",
+  "description": "A demonstration of Islands Architecture with no frameworks.",
   "main": "main.py",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build:css && npm run build:js",
     "watch": "npm run watch:css & npm run watch:js",
-    "build:js": "esbuild templates/components/flow/flow.tsx --bundle --outfile=static/flow.js",
-    "watch:js": "esbuild templates/components/flow/flow.tsx --bundle --outfile=static/flow.js --watch",
+    "build:js": "node build-js.js",
+    "watch:js": "node build-js.js --watch",
     "build:css": "tailwindcss -i ./src/input.css -o ./static/output.css --minify",
     "watch:css": "tailwindcss -i ./src/input.css -o ./static/output.css --watch"
   },
@@ -27,6 +27,7 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "esbuild": "^0.25.5",
+    "glob": "^10.4.5",
     "typescript": "^5.8.3"
   }
 }
