@@ -9,7 +9,7 @@ A simple project demonstrating how to build a web app that uses an island archit
 ## Pros
 
 - Allows you to avoid the complexities of keeping two applications (frontend-backend) in sync - in other words: no DTOs, no entity boilerplate, etc.
-- Islands are largely tech-agnostic - long as the underlying tech can interact with HTML.
+- Islands are largely tech-agnostic - as long as the underlying tech can interact with HTML.
 - Much lighter than framework based approaches.
 - Provides the safety of a serverside application.
 - No framework black-box abstractions.

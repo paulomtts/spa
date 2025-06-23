@@ -11,7 +11,7 @@
       <!-- Counter Section -->
       <div class="flex flex-col gap-2 bg-white shadow-xl rounded-2xl p-8 text-center space-y-4">
         {# The counter component now manages its own ID #}
-        {{ props.CounterComponent.html }}
+        {{ props.CounterComponent }}
         
         <span>
           This state will persist across page reloads.
@@ -24,7 +24,7 @@
           <h2 class="text-2xl font-bold text-gray-700">{{ props.UserTableComponent.title }}</h2>
           <span>This table will fetch new data on every page load.</span>
         </div>
-        {{ props.UserTableComponent.html }}
+        {{ props.UserTableComponent }}
       </div>
       
       <!-- Flow Diagram Section -->
@@ -33,7 +33,7 @@
           <h2 class="text-2xl font-bold text-gray-700">Flow Diagram</h2>
           <span>This component utilizes React.</span>
         </div>
-      {{ props.FlowComponent.html }}
+      {{ props.FlowComponent }}
     </div>
   </body>
 </html>

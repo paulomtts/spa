@@ -5,7 +5,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from templates.base import BaseComponent
 from templates.components.table.utils import generate_user_data
-from templates.components.counter.component import Counter
+from templates.components.counter.component import CounterComponent
 from templates.components import TableComponent
 from templates.components.flow.component import FlowComponent
 from templates.components.flow.utils import generate_flow_data_by_type
@@ -22,15 +22,13 @@ state = {"count": 0}
 @app.get("/", response_class=HTMLResponse)
 async def get_index(request: Request):
     # 1. Create component objects
-    counter = Counter(count=state["count"])
+    counter = CounterComponent(count=state["count"])
     data, columns = generate_user_data(15)
     user_table = TableComponent(
         title="User Management",
         columns=columns,
         rows=data,
     )
-
-    # Create flow component using utils
     title, nodes, edges = generate_flow_data_by_type("random")
     flow_data = FlowComponent(
         title=title,
@@ -38,13 +36,12 @@ async def get_index(request: Request):
         edges=edges,
     )
 
-    # 2. Pass component objects to the template
+    # 2. Render the template
     props = {
         "CounterComponent": counter,
         "UserTableComponent": user_table,
         "FlowComponent": flow_data,
     }
-    # 3. Render the template
     return templates.TemplateResponse(
         "index.html",
         {"request": request, "props": props},
@@ -54,15 +51,15 @@ async def get_index(request: Request):
 @app.post("/increment", response_class=HTMLResponse)
 async def increment_counter():
     state["count"] += 1
-    counter = Counter(count=state["count"])
-    return counter._render()
+    counter = CounterComponent(count=state["count"])
+    return counter.render()
 
 
 @app.post("/decrement", response_class=HTMLResponse)
 async def decrement_counter():
     state["count"] -= 1
-    counter = Counter(count=state["count"])
-    return counter._render()
+    counter = CounterComponent(count=state["count"])
+    return counter.render()
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@ from pydantic import Field
 from templates.base import BaseComponent
 
 
-class Counter(BaseComponent):
+class CounterComponent(BaseComponent):
     """A component representing the current count and its controls."""
 
     count: int = Field(..., description="The current count value.")

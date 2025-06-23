@@ -40,19 +40,17 @@ class BaseComponent(BaseModel):
                     "Please define a '_template' class variable or ensure the file is in the templates/ directory."
                 )
 
-    @property
-    def html(self) -> Markup:
+    def __html__(self) -> Markup:
         """
-        Property that automatically renders the component when accessed.
-        This allows for cleaner template syntax: {{ component.html }} instead of {{ component.render() }}
+        Automatically renders the component when accessed.
+        This allows for cleaner template syntax: {{ MyComponent }} instead of {{ MyComponent.render() }}
         """
-        return self._render()
+        return self.render()
 
     @classmethod
     def set_engine(cls, templates: "Jinja2Templates"):
         """
-        Sets the Jinja2 templates engine for all components
-        that inherit from this base class.
+        Sets the Jinja2 templates engine for all components that inherit from this base class.
         This should be called once at application startup.
         """
         cls._engine = templates
@@ -70,15 +68,13 @@ class BaseComponent(BaseModel):
             )
         return cls._engine
 
-    def _render(self, **context) -> Markup:
+    def render(self) -> Markup:
         """
         Renders the component's template with the given context.
-        The context is automatically supplemented with the component's own data.
+
+        Returns:
+            Markup: The rendered component.
         """
         engine = self.get_engine()
         template = engine.get_template(self.__class__._path)
-
-        full_context = self.model_dump()
-        full_context.update(context)
-
-        return Markup(template.render(full_context))
+        return Markup(template.render(self.model_dump()))
