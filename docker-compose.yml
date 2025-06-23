@@ -1,0 +1,12 @@
+services:
+  spa:
+    container_name: single-page-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./templates:/app/templates:ro
+      - ./main.py:/app/main.py:ro
+    command: ["python", "main.py", "&", "npm", "run", "build"]
