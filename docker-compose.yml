@@ -9,4 +9,4 @@ services:
     volumes:
       - ./templates:/app/templates:ro
       - ./main.py:/app/main.py:ro
-    command: ["python", "main.py", "&", "npm", "run", "build"]
+    command: ["python", "main.py"]
