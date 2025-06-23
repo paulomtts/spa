@@ -1,4 +1,7 @@
 import uvicorn
+import subprocess
+import shutil
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -10,8 +13,33 @@ from templates.components import TableComponent
 from templates.components.flow.component import FlowComponent
 from templates.components.flow.utils import generate_flow_data_by_type
 
-app = FastAPI()
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: Run before the app starts
+    print("🚀 Starting FastAPI...")
+    try:
+        # Try to find npm in PATH
+        npm_path = shutil.which("npm")
+        if npm_path:
+            # Use the found npm path
+            subprocess.run([npm_path, "run", "build"], check=True, capture_output=True)
+        else:
+            # Fallback: use shell=True (works on Windows and Unix)
+            subprocess.run("npm run build", shell=True, check=True, capture_output=True)
+        print("✅ Assets built successfully")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Build failed: {e}")
+    except Exception as e:
+        print(f"❌ Error during startup: {e}")
+
+    yield
+
+    # Shutdown: Run when the app shuts down
+    print("🛑 Shutting down FastAPI...")
+
+
+app = FastAPI(lifespan=lifespan)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
