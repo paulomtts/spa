@@ -1,0 +1,10 @@
+# Componentization
+1. All components inherit from the BaseComponent class.
+2. A component's main HTML file should have the same name as it's parent folder. Example: /templates/components/clock -> clock.html
+3. The python implementation of a component is a Pydantic model representing its data object. As a convenience, it can feature a class method called .create() to allow extra functionality (such as parsing, validation & etc) during component object instantiation.
+4. The python implementation of a component can also include enums & other types that may be acessed for stylization in the HTML template.
+
+# Using Component Objects Within HTML Templates
+1. When passing a component inside `props` to HTML Templates, always use capital casing. Example: clock_obj = ClockComponent.create(...) -> props = {"ClockComponent": clock_obj}
+2. Components are always passed as python Pydantic objects to the template, which allows you to access properties. Example: {{ ClockComponent.title }}
+3. For actual component HTML rendering, utilize the .html property. Example: {{ ClockComponent.html }}

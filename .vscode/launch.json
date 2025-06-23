@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "FastAPI + Browser Sync",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 8000
+            },
+            "justMyCode": true,
+            "preLaunchTask": "4. Reload Page",
+            "postDebugTask": "Full Cleanup"
+        },
+        {
+            "name": "FastAPI Only",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+} 

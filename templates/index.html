@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTMX Demo</title>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 flex flex-col gap-4">
+
+      <div class="flex flex-col gap-2 bg-white shadow-xl rounded-2xl p-8 text-center space-y-4">
+        {# The counter component now manages its own ID #}
+        {{ props.CounterComponent.html }}
+        
+        <span>
+          This state will persist across page reloads.
+        </span>
+      </div>
+      
+      
+      <!-- User Table Section -->
+      <div class="bg-white shadow-xl rounded-2xl p-8 flex flex-col gap-4">
+        <div class="flex flex-col gap-2">
+          <h2 class="text-2xl font-bold text-gray-700">{{ props.UserTableComponent.title }}</h2>
+          <span>This table will fetch new data on every page load.</span>
+        </div>
+        {{ props.UserTableComponent.html }}
+      </div>
+      
+      <!-- Flow Diagram Section -->
+      <div class="bg-white shadow-xl rounded-2xl p-8 flex flex-col gap-4 mb-8">
+        {{ props.FlowComponent.html }}
+      </div>
+    </div>
+  </body>
+</html>

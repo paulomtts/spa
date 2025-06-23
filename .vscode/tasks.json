@@ -1,0 +1,155 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "1. Build",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "build"],
+            "group": "build",
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            }
+        },
+        {
+            "label": "2. Start Backend",
+            "type": "shell",
+            "command": "python",
+            "args": ["main.py"],
+            "group": "build",
+            "isBackground": true,
+            "dependsOn": ["1. Build"],
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^$"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Uvicorn running on",
+                    "endsPattern": ".*"
+                }
+            }
+        },
+        {
+            "label": "3. Start Browser Sync",
+            "type": "shell",
+            "command": "browser-sync",
+            "args": [
+                "start",
+                "--proxy",
+                "localhost:8000",
+                "--port",
+                "3000",
+                "--files",
+                "./",
+                "--ignore",
+                "**/__pycache__/**",
+                "--ignore",
+                "**/.git/**",
+                "--no-notify"
+            ],
+            "group": "build",
+            "isBackground": true,
+            "dependsOn": ["2. Start Backend"],
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^$"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": ".*",
+                    "endsPattern": ".*"
+                }
+            }
+        },
+        {
+            "label": "4. Reload Page",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-Command",
+                "Start-Sleep -Seconds 2; browser-sync reload"
+            ],
+            "group": "build",
+            "dependsOn": ["3. Start Browser Sync"],
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            }
+        },
+        {
+            "label": "Cleanup Development",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-Command",
+                "taskkill /f /im python.exe 2>$null; taskkill /f /im browser-sync.exe 2>$null; Write-Host 'All development processes stopped.'"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            }
+        },
+        {
+            "label": "Close Terminals",
+            "type": "shell",
+            "command": "code",
+            "args": ["--command", "workbench.action.closeAllEditors"],
+            "group": "build",
+            "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            }
+        },
+        {
+            "label": "Full Cleanup",
+            "type": "shell",
+            "command": "echo",
+            "args": ["Cleaning up development environment..."],
+            "group": "build",
+            "dependsOn": ["Cleanup Development", "Close Terminals"],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            }
+        }
+    ]
+} 

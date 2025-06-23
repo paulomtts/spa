@@ -1,0 +1,12 @@
+<!-- Table Row Fragment -->
+<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors duration-200 {{ row.class_name }}">
+    {% for column in columns %}
+    <td class="px-4 py-3 text-sm text-gray-900 
+        {% if column.align == 'left' %}text-left
+        {% elif column.align == 'center' %}text-center
+        {% elif column.align == 'right' %}text-right
+        {% endif %}">
+        {{ row.data[column.key] }}
+    </td>
+    {% endfor %}
+</tr>

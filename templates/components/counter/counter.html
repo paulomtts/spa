@@ -1,0 +1,28 @@
+<!-- Counter Component -->
+<div id="counter" class="flex flex-col gap-4">
+    <h1 class="text-2xl font-bold text-gray-700">{{ title }}</h1>
+
+    <div class="text-4xl font-mono text-blue-600">
+        {{ count }}
+    </div>
+
+    <div class="space-x-4">
+        <button
+            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+            hx-post="/decrement"
+            hx-target="#counter"
+            hx-swap="outerHTML"
+        >
+            Decrement
+        </button>
+
+        <button
+            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+            hx-post="/increment"
+            hx-target="#counter"
+            hx-swap="outerHTML"
+        >
+            Increment
+        </button>
+    </div>
+</div> 

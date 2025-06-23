@@ -1,0 +1,26 @@
+{
+  "name": "spa",
+  "version": "1.0.0",
+  "description": "1. Run `npm install -g browser-sync`\r 2. Start in debug mode and select `FastAPI + Browser Sync`",
+  "main": "main.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild templates/components/flow/flow.tsx --bundle --outfile=static/flow.js",
+    "watch": "esbuild templates/components/flow/flow.tsx --bundle --outfile=static/flow.js --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@xyflow/react": "^12.7.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "esbuild": "^0.25.5",
+    "typescript": "^5.8.3"
+  }
+}

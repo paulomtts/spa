@@ -1,0 +1,19 @@
+<!-- Simple Table Component -->
+<div class="w-full overflow-x-auto rounded-lg shadow-md">
+    <table class="w-full border-collapse bg-white font-sans">
+        
+        {% include 'components/table/header.html' %}
+        
+        <tbody>
+            {% for row in rows %}
+                {% include 'components/table/row.html' %}
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    {% if not rows %}
+    <div class="text-center py-8 text-gray-500">
+        <h3 class="text-sm font-medium text-gray-900">No data available</h3>
+    </div>
+    {% endif %}
+</div>

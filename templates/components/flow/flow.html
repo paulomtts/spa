@@ -1,0 +1,15 @@
+<!-- Flow Component -->
+<link rel="stylesheet" href="/static/flow.css">
+<script>
+    // Pass data from Jinja2 to the window object
+    window.initialNodes = {{ nodes | tojson | safe }};
+    window.initialEdges = {{ edges | tojson | safe }};
+</script>
+
+<div class="w-full h-96 border border-gray-300 rounded-lg overflow-hidden relative">
+    <div id="flow-container" class="w-full h-full" style="position: relative; z-index: 1;">
+        <!-- ReactFlow will be mounted here -->
+    </div>
+</div>
+
+<script type="module" src="/static/flow.js" defer></script>
